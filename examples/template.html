@@ -1,0 +1,766 @@
+{% extends "base.html" %}
+
+{% block title %}{{ solution_brief_data.company_name }} - {{ solution_brief_data.service_title }}{% endblock %}
+
+{% block additional_styles %}
+/* Solution Brief specific styles */
+.solution-brief-header {
+    background: linear-gradient(135deg, #1a237e 0%, #3949ab 50%, #5c6bc0 100%);
+    color: white;
+    padding: 40px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    page-break-after: avoid;
+}
+
+.header-left {
+    flex: 1;
+}
+
+.document-type-label {
+    background: rgba(255,255,255,0.2);
+    padding: 6px 16px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 16px;
+}
+
+.service-title {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.header-meta {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.header-right {
+    text-align: right;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.problem-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin: 30px 0;
+}
+
+.problem-category {
+    background: #f8f9ff;
+    border-left: 4px solid #64b5f6;
+    padding: 24px;
+    border-radius: 0 8px 8px 0;
+}
+
+.problem-category h3 {
+    color: #1a237e;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.problem-category ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.problem-category li {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+    padding-left: 16px;
+    position: relative;
+    font-style: italic;
+}
+
+.problem-category li::before {
+    content: "•";
+    color: #64b5f6;
+    font-size: 16px;
+    position: absolute;
+    left: 0;
+    font-style: normal;
+}
+
+.value-props {
+    margin: 40px 0;
+}
+
+.value-prop {
+    margin-bottom: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.value-prop:last-child {
+    border-bottom: none;
+}
+
+.value-prop h3 {
+    color: #1a237e;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.value-prop p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.use-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin: 30px 0;
+}
+
+.use-case-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.use-case-card h3 {
+    color: #1a237e;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.use-case-card p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.features-section {
+    margin: 40px 0;
+}
+
+.features-subsection {
+    margin-bottom: 40px;
+}
+
+.features-subsection h3 {
+    color: #1a237e;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #64b5f6;
+}
+
+.tech-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.tech-feature {
+    background: #f8f9ff;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 3px solid #64b5f6;
+}
+
+.tech-feature h4 {
+    color: #1a237e;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.tech-feature p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.tech-feature ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tech-feature li {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 4px;
+    padding-left: 12px;
+    position: relative;
+}
+
+.tech-feature li::before {
+    content: "▸";
+    color: #64b5f6;
+    position: absolute;
+    left: 0;
+}
+
+.service-offerings {
+    margin: 20px 0;
+}
+
+.service-offering {
+    margin-bottom: 20px;
+    padding: 16px 20px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.service-offering .category-badge {
+    background: #64b5f6;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.service-offering h4 {
+    color: #1a237e;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.service-offering p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.methodology-diagram {
+    text-align: center;
+    margin: 30px 0;
+    padding: 20px;
+    background: #f8f9ff;
+    border-radius: 8px;
+}
+
+.methodology-phases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.methodology-phase {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    position: relative;
+}
+
+.phase-number {
+    background: #64b5f6;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0 auto 12px;
+}
+
+.methodology-phase h4 {
+    color: #1a237e;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.methodology-phase p {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.4;
+}
+
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.partner-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+}
+
+.partner-card h4 {
+    color: #1a237e;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.partner-card .proficiency {
+    font-size: 12px;
+    color: #64b5f6;
+    font-weight: 500;
+}
+
+.base-package-badge {
+    background: #e8f5e8;
+    color: #2e7d32;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    margin-top: 4px;
+    display: inline-block;
+}
+
+.success-story {
+    background: #f3f7ff;
+    border-left: 4px solid #64b5f6;
+    padding: 24px;
+    margin: 30px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.success-story h3 {
+    color: #1a237e;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.success-story .client-info {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 16px;
+    font-style: italic;
+}
+
+.success-story .outcome-section {
+    margin-bottom: 12px;
+}
+
+.success-story .outcome-section strong {
+    color: #1a237e;
+    font-weight: 600;
+}
+
+.by-numbers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.number-stat {
+    text-align: center;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.number-stat .stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #64b5f6;
+    display: block;
+}
+
+.number-stat .stat-label {
+    font-size: 12px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+}
+
+.cta-section {
+    background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%);
+    color: white;
+    padding: 40px;
+    text-align: center;
+    border-radius: 12px;
+    margin: 40px 0;
+}
+
+.cta-section h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.cta-section p {
+    font-size: 16px;
+    opacity: 0.9;
+}
+{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<div class="solution-brief-header">
+    <div class="header-left">
+        <div class="document-type-label">SOLUTION BRIEF</div>
+        <h1 class="service-title">{{ solution_brief_data.service_title }}</h1>
+        <div class="header-meta">
+            {{ solution_brief_data.date }} | Prepared by {{ solution_brief_data.prepared_by }}
+        </div>
+    </div>
+    <div class="header-right">
+        <div class="logo">{{ solution_brief_data.company_name }}</div>
+    </div>
+</div>
+
+<!-- Service Overview Page -->
+<div class="page">
+    <div class="header">
+        <div class="header-logo">{{ solution_brief_data.company_name }}</div>
+        {% if options.include_page_numbers %}<div class="page-number">2</div>{% endif %}
+    </div>
+    
+    <div class="content">
+        <h2 class="section-title">Service Overview</h2>
+        
+        {% if solution_brief_data.captivating_opening %}
+        <div class="blue-box">
+            <p>{{ solution_brief_data.captivating_opening }}</p>
+        </div>
+        {% endif %}
+        
+        <p class="intro-text">{{ solution_brief_data.service_overview }}</p>
+    </div>
+</div>
+
+<!-- Problem Statement Page -->
+<div class="page">
+    <div class="header">
+        <div class="header-logo">{{ solution_brief_data.company_name }}</div>
+        {% if options.include_page_numbers %}<div class="page-number">3</div>{% endif %}
+    </div>
+    
+    <div class="content">
+        <h2 class="section-title">Problem Statement</h2>
+        
+        <div class="problem-grid">
+            {% for category in solution_brief_data.problem_categories %}
+            <div class="problem-category">
+                <h3>{{ category.title }}</h3>
+                <ul>
+                    {% for item in category['items'] %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Value Proposition Page -->
+<div class="page">
+    <div class="header">
+        <div class="header-logo">{{ solution_brief_data.company_name }}</div>
+        {% if options.include_page_numbers %}<div class="page-number">4</div>{% endif %}
+    </div>
+    
+    <div class="content">
+        <h2 class="section-title">Value Proposition</h2>
+        
+        <div class="value-props">
+            {% for value_prop in solution_brief_data.value_propositions %}
+            <div class="value-prop">
+                <h3><strong>{{ value_prop.title }}</strong></h3>
+                <p>{{ value_prop.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Use Cases Page -->
+<div class="page">
+    <div class="header">
+        <div class="header-logo">{{ solution_brief_data.company_name }}</div>
+        {% if options.include_page_numbers %}<div class="page-number">5</div>{% endif %}
+    </div>
+    
+    <div class="content">
+        <h2 class="section-title">Use Cases</h2>
+        
+        <div class="use-cases-grid">
+            {% for use_case in solution_brief_data.use_cases %}
+            <div class="use-case-card">
+                <h3>{{ use_case.title }}</h3>
+                <p>{{ use_case.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Key Features Page -->
+<div class="page">
+    <div class="header">
+        <div class="header-logo">{{ solution_brief_data.company_name }}</div>
+        {% if options.include_page_numbers %}<div class="page-number">6</div>{% endif %}
+    </div>
+    
+    <div class="content">
+        <h2 class="section-title">Key Features</h2>
+        
+        <div class="features-section">
+            <div class="features-subsection">
+                <h3>Technology Features</h3>
+                <div class="tech-features">
+                    {% for feature in solution_brief_data.technology_features %}
+                    <div class="tech-feature">
+                        <h4>{{ feature.title }}</h4>
+                        <p>{{ feature.description }}</p>
+                        {% if feature.sub_features and feature.sub_features|length > 0 %}
+                        <ul>
+                            {% for sub_feature in feature.sub_features %}
+                            <li>{{ sub_feature }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="features-subsection">
+                <h3>BlueAlly Service Offerings</h3>
+                <div class="service-offerings">
+                    {% for offering in solution_brief_data.service_offerings %}
+                    <div class="service-offering">
+                        <div class="category-badge">{{ offering.category }} Package</div>
+                        <h4>{{ offering.title }}</h4>
+                        <p>{{ offering.description }}</p>
+                        {% if offering.scope_details and offering.scope_details|length > 0 %}
+                        <ul>
+                            {% for detail in offering.scope_details %}
+                            <li>{{ detail }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Methodology Page -->
+<div class="page">
+    <div class="header">
+        <div class="header-logo">{{ solution_brief_data.company_name }}</div>
+        {% if options.include_page_numbers %}<div class="page-number">7</div>{% endif %}
+    </div>
+    
+    <div class="content">
+        <h2 class="section-title">Our Approach / Methodology</h2>
+        
+        {% if solution_brief_data.methodology_diagram_url %}
+        <div class="methodology-diagram">
+            <img src="{{ solution_brief_data.methodology_diagram_url }}" alt="BlueAlly Methodology" style="max-width: 100%; height: auto;">
+        </div>
+        {% endif %}
+        
+        <div class="methodology-phases">
+            {% for phase in solution_brief_data.methodology_phases %}
+            <div class="methodology-phase">
+                <div class="phase-number">{{ phase.phase_number }}</div>
+                <h4>{{ phase.title }}</h4>
+                <p>{{ phase.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Technology Partners Page -->
+<div class="page">
+    <div class="header">
+        <div class="header-logo">{{ solution_brief_data.company_name }}</div>
+        {% if options.include_page_numbers %}<div class="page-number">8</div>{% endif %}
+    </div>
+    
+    <div class="content">
+        <h2 class="section-title">Technology Partners</h2>
+        
+        <div class="partners-grid">
+            {% for partner in solution_brief_data.technology_partners %}
+            <div class="partner-card">
+                <h4>{{ partner.name }}</h4>
+                <div class="proficiency">{{ partner.proficiency_level }}</div>
+                {% if partner.included_in_base %}
+                <div class="base-package-badge">Base Package</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Optional Sections -->
+{% if solution_brief_data.client_success_story %}
+<div class="page">
+    <div class="header">
+        <div class="header-logo">{{ solution_brief_data.company_name }}</div>
+        {% if options.include_page_numbers %}<div class="page-number">9</div>{% endif %}
+    </div>
+    
+    <div class="content">
+        <h2 class="section-title">Client Success Story</h2>
+        
+        <div class="success-story">
+            <h3>{{ solution_brief_data.client_success_story.client_name }}</h3>
+            <div class="client-info">
+                {{ solution_brief_data.client_success_story.engagement_scope }} | 
+                {{ solution_brief_data.client_success_story.key_stakeholders }}
+            </div>
+            
+            <div class="outcome-section">
+                <strong>Challenge:</strong> {{ solution_brief_data.client_success_story.challenge }}
+            </div>
+            
+            <div class="outcome-section">
+                <strong>Solution Approach:</strong> {{ solution_brief_data.client_success_story.solution_approach }}
+            </div>
+            
+            <div class="outcome-section">
+                <strong>Business Outcomes:</strong> {{ solution_brief_data.client_success_story.business_outcomes }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if solution_brief_data.by_the_numbers %}
+<div class="page">
+    <div class="header">
+        <div class="header-logo">{{ solution_brief_data.company_name }}</div>
+        {% if options.include_page_numbers %}<div class="page-number">{% if solution_brief_data.client_success_story %}10{% else %}9{% endif %}</div>{% endif %}
+    </div>
+    
+    <div class="content">
+        <h2 class="section-title">By the Numbers</h2>
+        
+        <div class="by-numbers">
+            {% for key in solution_brief_data.by_the_numbers %}
+            <div class="number-stat">
+                <span class="stat-value">{{ solution_brief_data.by_the_numbers[key] }}</span>
+                <span class="stat-label">{{ key }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Related Services & Why Choose BlueAlly -->
+{% if solution_brief_data.related_services or solution_brief_data.why_choose_blueally %}
+<div class="page">
+    <div class="header">
+        <div class="header-logo">{{ solution_brief_data.company_name }}</div>
+        {% if options.include_page_numbers %}<div class="page-number">
+            {% set page_num = 9 %}
+            {% if solution_brief_data.client_success_story %}{% set page_num = page_num + 1 %}{% endif %}
+            {% if solution_brief_data.by_the_numbers %}{% set page_num = page_num + 1 %}{% endif %}
+            {{ page_num }}
+        </div>{% endif %}
+    </div>
+    
+    <div class="content">
+        {% if solution_brief_data.related_services %}
+        <h2 class="section-title">Related Services</h2>
+        
+        <div class="body-text">
+            <ul>
+                {% for service in solution_brief_data.related_services %}
+                <li>{{ service }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        
+        {% if solution_brief_data.why_choose_blueally %}
+        <h2 class="section-title">Why Choose BlueAlly</h2>
+        
+        <div class="body-text">
+            <ul>
+                {% for reason in solution_brief_data.why_choose_blueally %}
+                <li>{{ reason }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+<!-- Call to Action -->
+<div class="page">
+    <div class="header">
+        <div class="header-logo">{{ solution_brief_data.company_name }}</div>
+        {% if options.include_page_numbers %}<div class="page-number">
+            {% set page_num = 10 %}
+            {% if solution_brief_data.client_success_story %}{% set page_num = page_num + 1 %}{% endif %}
+            {% if solution_brief_data.by_the_numbers %}{% set page_num = page_num + 1 %}{% endif %}
+            {% if solution_brief_data.related_services or solution_brief_data.why_choose_blueally %}{% set page_num = page_num + 1 %}{% endif %}
+            {{ page_num }}
+        </div>{% endif %}
+    </div>
+    
+    <div class="content">
+        <div class="cta-section">
+            <h3>Ready to Transform Your Business?</h3>
+            <p>{{ solution_brief_data.call_to_action }}</p>
+        </div>
+        
+        {% if solution_brief_data.industry_facts %}
+        <h2 class="section-title">Industry Facts</h2>
+        <div class="body-text">
+            <ul>
+                {% for fact in solution_brief_data.industry_facts %}
+                <li>{{ fact }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="footer">
+        <div class="contact-info">{{ solution_brief_data.call_to_action }}</div>
+        <div>© 2024 {{ solution_brief_data.company_name }}. All rights reserved.</div>
+    </div>
+</div>
+{% endblock %} 
