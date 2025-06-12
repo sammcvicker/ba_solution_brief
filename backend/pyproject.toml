@@ -26,6 +26,7 @@ dependencies = [
     "openpyxl>=3.1.5",
     "markdown>=3.8",
     "typing-extensions>=4.14.0",
+    "pytesseract>=0.3.13",
 ]
 
 [tool.uv.sources]
